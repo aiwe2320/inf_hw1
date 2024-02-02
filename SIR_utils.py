@@ -15,9 +15,16 @@ def simple_SIR(S0, I0, R0, beta, gamma, dt, tmax):
     I_list = [I0]
     R_list = [R0]
     
-    # Get list of times
-    t_list = list(range(0,tmax, dt))
-    
+    # If 0<dt<1, can't use range
+    t_list = []
+    if (dt > 0 and dt < 1):
+        count = 0
+        while (count < tmax):
+            t_list.append(count)
+            count += dt
+    else:  # Get list of times using range
+        t_list = list(range(0,tmax, dt))
+
     # Iterate over all times
     for t in t_list:
         # Calculate instantaneous rates of change
